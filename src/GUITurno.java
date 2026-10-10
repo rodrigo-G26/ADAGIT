@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -11,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.TreeSet;
 import java.awt.event.ActionEvent;
 
@@ -18,9 +20,9 @@ public class GUITurno extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	
+	private JTextField textField_Nombre;
+	private JTextField textField_Apellido;
+	DefaultListModel<Persona> agenda = new DefaultListModel<>();
 
 
 	/**
@@ -50,11 +52,7 @@ public class GUITurno extends JFrame {
 		setJMenuBar(menuBar);
 		
 		JButton btnNewButton = new JButton("Agendar");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		menuBar.add(btnNewButton);
+		
 		
 		JButton btnNewButton_1 = new JButton("Buscar");
 		menuBar.add(btnNewButton_1);
@@ -70,6 +68,7 @@ public class GUITurno extends JFrame {
 		list.setBounds(361, 30, 292, 345);
 		contentPane.add(list);
 		
+		
 		JLabel lblNewLabel = new JLabel("Nombre");
 		lblNewLabel.setBounds(10, 62, 44, 12);
 		contentPane.add(lblNewLabel);
@@ -82,19 +81,19 @@ public class GUITurno extends JFrame {
 		lblNewLabel_2.setBounds(10, 104, 44, 12);
 		contentPane.add(lblNewLabel_2);
 		
-		textField = new JTextField();
-		textField.setBounds(64, 59, 128, 18);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		textField_Nombre = new JTextField();
+		textField_Nombre.setBounds(64, 59, 128, 18);
+		contentPane.add(textField_Nombre);
+		textField_Nombre.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(64, 101, 128, 18);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		textField_Apellido = new JTextField();
+		textField_Apellido.setBounds(64, 101, 128, 18);
+		contentPane.add(textField_Apellido);
+		textField_Apellido.setColumns(10);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(64, 149, 128, 20);
-		contentPane.add(comboBox);
+		JComboBox comboBox_Fecha = new JComboBox();
+		comboBox_Fecha.setBounds(64, 149, 128, 20);
+		contentPane.add(comboBox_Fecha);
 		
 		JLabel lblNewLabel_3 = new JLabel("Fecha");
 		lblNewLabel_3.setBounds(10, 153, 44, 12);
@@ -104,9 +103,30 @@ public class GUITurno extends JFrame {
 		lblNewLabel_4.setBounds(10, 193, 44, 12);
 		contentPane.add(lblNewLabel_4);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(64, 189, 128, 20);
-		contentPane.add(comboBox_1);
+		JComboBox comboBox_Hora = new JComboBox();
+		comboBox_Hora.setBounds(64, 189, 128, 20);
+		contentPane.add(comboBox_Hora);
+		
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				String nombre = textField_Nombre.getText();
+				String apellido = textField_Apellido.getText();
+				
+				Persona p = new Persona(nombre, apellido);
+				agenda.addElement(p);
+				
+				textField_Nombre.setText("");
+				textField_Apellido.setText("");
+		
+				
+			}
+		});
+		menuBar.add(btnNewButton);
+		
+		
+		list.setModel(agenda); //yo agregue
 
 	}
 }
