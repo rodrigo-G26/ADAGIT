@@ -1,4 +1,33 @@
 
 public class Persona {
+	
+	private String nombre;
+	private String apellido;
+	private String fecha;
+	private String hora;
+
+	public Persona(String nombre, String apellido) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		
+	}
+	
+
+	public Persona() {
+	}
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	@Override
+	public String toString() {
+		return nombre + " " + apellido;
+	}
 
 }
