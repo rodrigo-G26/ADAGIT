@@ -86,7 +86,6 @@ public class GUITurno extends JFrame {
 
 		        for (int i = 0; i < modelo1.size(); i++) {
 		            if (modelo1.getElementAt(i).getNombre().equalsIgnoreCase(busqueda)) {
-		                JOptionPane.showMessageDialog(null, " Se Encontro al Paciente " + textNombre.getText());
 		                list1.setSelectedIndex(i);
 		                return;
 		            }
