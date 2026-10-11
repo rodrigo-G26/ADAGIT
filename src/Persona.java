@@ -3,10 +3,26 @@ public class Persona implements Comparable<Persona>{
 
 	String Nombre; 
 	String Apellido;
-	public Persona(String nombre, String apellido) {
+	String Fecha;
+	String Hora;
+	public Persona(String nombre, String apellido, String fecha, String hora) {
 		
 		Nombre = nombre;
 		Apellido = apellido;
+		Fecha = fecha;
+		Hora = hora; 
+	}
+	public String getFecha() {
+		return Fecha;
+	}
+	public void setFecha(String fecha) {
+		Fecha = fecha;
+	}
+	public String getHora() {
+		return Hora;
+	}
+	public void setHora(String hora) {
+		Hora = hora;
 	}
 	public Persona() {
 		
@@ -31,7 +47,7 @@ public class Persona implements Comparable<Persona>{
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return Nombre + " " + Apellido;
+		return Nombre + " " + Apellido + " " + Fecha + " " + Hora;
 	}
 	
 	

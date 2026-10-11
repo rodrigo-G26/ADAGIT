@@ -25,7 +25,10 @@ public class GUITurno extends JFrame {
 	private JTextField textApellido;
 
 	DefaultListModel<Persona> modelo1 = new DefaultListModel<>();
+	
+	
 	private JList<Persona> list1;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -61,17 +64,8 @@ public class GUITurno extends JFrame {
 		JButton btnNewButton = new JButton("Agendar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String Nombre = textNombre.getText();
-				String Apellido = textApellido.getText();
-			modelo1.addElement(new Persona (Nombre, Apellido));
-				
-				
-				
-				
-				
-				
-				
-				
+			
+					
 				
 			}
 		});
@@ -83,15 +77,23 @@ public class GUITurno extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String busqueda =JOptionPane.showInputDialog(null, "Nombre del paciente");
 				if (busqueda == null) return;
+				int cantidad = 0;
+				list1.clearSelection();
 
 		        for (int i = 0; i < modelo1.size(); i++) {
 		            if (modelo1.getElementAt(i).getNombre().equalsIgnoreCase(busqueda)) {
-		                list1.setSelectedIndex(i);
-		                return;
+		                list1.addSelectionInterval(i,i);
+		                cantidad++;	
+
 		            }
+		        } 
+		        if (cantidad == 0) {
+		        	JOptionPane.showMessageDialog(null, "No se encontró");
+		        }else {
+		        	JOptionPane.showMessageDialog(null, "Coincidencias: " + cantidad);
 		        }
-		        JOptionPane.showMessageDialog(null, "No se encontró");
-				
+		        
+		        
 			}
 		});
 		menuBar.add(btnNewButton_1);
