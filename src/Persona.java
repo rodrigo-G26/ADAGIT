@@ -6,9 +6,11 @@ public class Persona {
 	private String fecha;
 	private String hora;
 
-	public Persona(String nombre, String apellido) {
+	public Persona(String nombre, String apellido, String fecha, String hora) {
 		this.nombre = nombre;
 		this.apellido = apellido;
+		this.fecha = fecha;
+		this.hora = hora;
 		
 	}
 	
@@ -24,10 +26,19 @@ public class Persona {
 	public String getApellido() {
 		return apellido;
 	}
+	
+	public String getFecha() {
+		return fecha;
+	}
+	
+	public String getHora() {
+		return hora;
+	}
+	
 
 	@Override
 	public String toString() {
-		return nombre + " " + apellido;
+		return nombre + " " + apellido + " | " + fecha + " | " + hora;
 	}
 
 }
