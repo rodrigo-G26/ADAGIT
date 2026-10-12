@@ -3,6 +3,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -54,20 +55,37 @@ public class GUITurno extends JFrame {
 			}
 		});
 		menuBar.add(btnNewButton);
+		JList list = new JList();
+		list.setBounds(361, 30, 292, 345);
+		contentPane.add(list);
+		
 		
 		JButton btnNewButton_1 = new JButton("Buscar");
 		menuBar.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Eliminar ");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 Persona seleccion = (Persona) list.getSelectedValue();
+
+			        if (seleccion == null) {
+			            JOptionPane.showMessageDialog(null,
+			                    "Selecciona un paciente para eliminar");
+			            return;
+			        }
+
+			        modelo1.removeElement(seleccion);
+
+			        JOptionPane.showMessageDialog(null,
+			                "Paciente eliminado correctamente");
+			
+			}
+		});
 		menuBar.add(btnNewButton_2);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		JList list = new JList();
-		list.setBounds(361, 30, 292, 345);
-		contentPane.add(list);
 		
 		JLabel lblNewLabel = new JLabel("Nombre");
 		lblNewLabel.setBounds(10, 62, 44, 12);
