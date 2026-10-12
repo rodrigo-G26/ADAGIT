@@ -76,7 +76,8 @@ public class GUITurno extends JFrame {
 
 		        int respuesta = JOptionPane.showConfirmDialog(
 		                null,
-		                "¿Seguro que deseas eliminar este paciente?",
+		                "¿Deseas eliminar al paciente "
+		                + seleccion.getNombre() + "?",
 		                "Confirmar eliminacion",
 		                JOptionPane.YES_NO_OPTION
 		        );
@@ -85,7 +86,8 @@ public class GUITurno extends JFrame {
 		            modelo1.removeElement(seleccion);
 
 		            JOptionPane.showMessageDialog(null,
-		                    "Paciente eliminado correctamente");
+		                    "El paciente " + seleccion.getNombre()
+		                    + " fue eliminado correctamente");
 		        }
 		    }
 		});
