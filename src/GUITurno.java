@@ -118,6 +118,33 @@ public class GUITurno extends JFrame {
 		menuBar.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Eliminar ");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				  Persona seleccion = list1.getSelectedValue();
+
+			        if (seleccion == null) {
+			            JOptionPane.showMessageDialog(null,
+			                    "Selecciona un paciente para eliminar");
+			            return;
+			        }
+
+			        int respuesta = JOptionPane.showConfirmDialog(
+			                null,
+			                "¿Deseas eliminar al paciente "
+			                + seleccion.getNombre() + "?",
+			                "Confirmar eliminacion",
+			                JOptionPane.YES_NO_OPTION
+			        );
+
+			        if (respuesta == JOptionPane.YES_OPTION) {
+			            modelo1.removeElement(seleccion);
+
+			            JOptionPane.showMessageDialog(null,
+			                    "El paciente " + seleccion.getNombre()
+			                    + " fue eliminado correctamente");
+			        }
+			    }
+			});
 		menuBar.add(btnNewButton_2);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
