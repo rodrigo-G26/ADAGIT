@@ -66,20 +66,28 @@ public class GUITurno extends JFrame {
 		JButton btnNewButton_2 = new JButton("Eliminar ");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 Persona seleccion = (Persona) list.getSelectedValue();
+				Persona seleccion = list.getSelectedValue();
 
-			        if (seleccion == null) {
-			            JOptionPane.showMessageDialog(null,
-			                    "Selecciona un paciente para eliminar");
-			            return;
-			        }
+		        if (seleccion == null) {
+		            JOptionPane.showMessageDialog(null,
+		                    "Selecciona un paciente para eliminar");
+		            return;
+		        }
 
-			        modelo1.removeElement(seleccion);
+		        int respuesta = JOptionPane.showConfirmDialog(
+		                null,
+		                "¿Seguro que deseas eliminar este paciente?",
+		                "Confirmar eliminacion",
+		                JOptionPane.YES_NO_OPTION
+		        );
 
-			        JOptionPane.showMessageDialog(null,
-			                "Paciente eliminado correctamente");
-			
-			}
+		        if (respuesta == JOptionPane.YES_OPTION) {
+		            modelo1.removeElement(seleccion);
+
+		            JOptionPane.showMessageDialog(null,
+		                    "Paciente eliminado correctamente");
+		        }
+		    }
 		});
 		menuBar.add(btnNewButton_2);
 		contentPane = new JPanel();
