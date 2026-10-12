@@ -1,54 +1,54 @@
 
+
 public class Persona implements Comparable<Persona>{
 
-	String Nombre; 
-	String Apellido;
-	String Fecha;
-	String Hora;
+	
+	private String nombre;
+	private String apellido;
+	private String fecha;
+	private String hora;
+
 	public Persona(String nombre, String apellido, String fecha, String hora) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.fecha = fecha;
+		this.hora = hora;
 		
-		Nombre = nombre;
-		Apellido = apellido;
-		Fecha = fecha;
-		Hora = hora; 
 	}
-	public String getFecha() {
-		return Fecha;
-	}
-	public void setFecha(String fecha) {
-		Fecha = fecha;
-	}
-	public String getHora() {
-		return Hora;
-	}
-	public void setHora(String hora) {
-		Hora = hora;
-	}
+	
+
 	public Persona() {
-		
 	}
+
+
 	public String getNombre() {
-		return Nombre;
+		return nombre;
 	}
-	public void setNombre(String nombre) {
-		Nombre = nombre;
-	}
+
 	public String getApellido() {
-		return Apellido;
+		return apellido;
 	}
-	public void setApellido(String apellido) {
-		Apellido = apellido;
+	
+	public String getFecha() {
+		return fecha;
 	}
+	
+	public String getHora() {
+		return hora;
+	}
+	
+
+	@Override
+	public String toString() {
+		return nombre + " " + apellido + " | " + fecha + " | " + hora;
+	}
+
+
 	@Override
 	public int compareTo(Persona o) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return Nombre + " " + Apellido + " " + Fecha + " " + Hora;
-	}
-	
+
 	
 }

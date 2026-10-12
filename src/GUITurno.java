@@ -2,18 +2,29 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
+
 import javax.swing.DefaultComboBoxModel;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.SpinnerDateModel;
+import javax.swing.SpinnerModel;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+
 import java.time.LocalTime;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.TreeSet;
 import java.awt.event.ActionEvent;
 
@@ -21,10 +32,13 @@ public class GUITurno extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textNombre;
-	private JTextField textApellido;
 
 	DefaultListModel<Persona> modelo1 = new DefaultListModel<>();
+
+	private JTextField textField_Nombre;
+	private JTextField textField_Apellido;
+	DefaultListModel<Persona> agenda = new DefaultListModel<>();
+
 	
 	
 	private JList<Persona> list1;
@@ -51,9 +65,12 @@ public class GUITurno extends JFrame {
 	public GUITurno() {
 		
 
-	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 695, 461);
+		
+		SpinnerDateModel fechas = new SpinnerDateModel(new Date(),null,null, Calendar.DAY_OF_MONTH); //Spinner fecha
+		SpinnerDateModel horas = new SpinnerDateModel(new Date(), null, null, Calendar.MINUTE); //Spinner hora
+		
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -62,6 +79,7 @@ public class GUITurno extends JFrame {
 		
 		
 		JButton btnNewButton = new JButton("Agendar");
+
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
@@ -70,6 +88,7 @@ public class GUITurno extends JFrame {
 			}
 		});
 		menuBar.add(btnNewButton);
+
 		
 	
 		JButton btnNewButton_1 = new JButton("Buscar");
@@ -80,8 +99,8 @@ public class GUITurno extends JFrame {
 				int cantidad = 0;
 				list1.clearSelection();
 
-		        for (int i = 0; i < modelo1.size(); i++) {
-		            if (modelo1.getElementAt(i).getNombre().equalsIgnoreCase(busqueda)) {
+		        for (int i = 0; i < agenda.size(); i++) {
+		            if (agenda.getElementAt(i).getNombre().equalsIgnoreCase(busqueda)) {
 		                list1.addSelectionInterval(i,i);
 		                cantidad++;	
 
@@ -106,7 +125,6 @@ public class GUITurno extends JFrame {
 		contentPane.setLayout(null);
 		
 		
-		
 		JLabel lblNewLabel = new JLabel("Nombre");
 		lblNewLabel.setBounds(10, 62, 65, 12);
 		contentPane.add(lblNewLabel);
@@ -118,32 +136,31 @@ public class GUITurno extends JFrame {
 		JLabel lblNewLabel_2 = new JLabel("Apellido");
 		lblNewLabel_2.setBounds(10, 104, 65, 12);
 		contentPane.add(lblNewLabel_2);
-		
-		textNombre = new JTextField();
-		textNombre.setBounds(128, 59, 128, 18);
-		contentPane.add(textNombre);
-		textNombre.setColumns(10);
-		
-		textApellido = new JTextField();
-		textApellido.setBounds(128, 94, 128, 18);
-		contentPane.add(textApellido);
-		textApellido.setColumns(10);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(128, 149, 128, 20);
-		contentPane.add(comboBox);
+
+		textField_Nombre = new JTextField();
+		textField_Nombre.setBounds(64, 59, 128, 18);
+		contentPane.add(textField_Nombre);
+		textField_Nombre.setColumns(10);
+
+		textField_Apellido = new JTextField();
+		textField_Apellido.setBounds(64, 101, 128, 18);
+		contentPane.add(textField_Apellido);
+		textField_Apellido.setColumns(10);
+
 		
 		JLabel lblNewLabel_3 = new JLabel("Fecha");
 		lblNewLabel_3.setBounds(10, 153, 65, 12);
 		contentPane.add(lblNewLabel_3);
 		
+		JSpinner spinner = new JSpinner(fechas); //Spinner fecha
+		spinner.setBounds(64, 153, 120, 20);
+		contentPane.add(spinner);
+		JSpinner.DateEditor editor = new JSpinner.DateEditor(spinner, "dd/MM/yyyy");
+		spinner.setEditor(editor);
+		
 		JLabel lblNewLabel_4 = new JLabel("Hora");
 		lblNewLabel_4.setBounds(10, 193, 65, 12);
 		contentPane.add(lblNewLabel_4);
-		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(128, 189, 128, 20);
-		contentPane.add(comboBox_1);
 		
 		
 		 list1 = new JList<>();
@@ -153,6 +170,42 @@ public class GUITurno extends JFrame {
 		
 		
 	
+
+		JSpinner spinnerH = new JSpinner(horas); //Spinner hora
+		spinnerH.setBounds(64, 189, 120, 20);
+		contentPane.add(spinnerH);
+		JSpinner.DateEditor editorH = new JSpinner.DateEditor(spinnerH, "HH:mm");
+		spinnerH.setEditor(editorH);
+		
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				String nombre = textField_Nombre.getText();
+				String apellido = textField_Apellido.getText();
+				
+				Date FS = (Date)spinner.getValue(); //Spinner fecha
+				SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+				String fecha = formato.format(FS); //guardamos la fecha
+				
+				Date HS = (Date) spinnerH.getValue();//Spinner hora
+				SimpleDateFormat formatoHora = new SimpleDateFormat("HH:mm");
+				String hora = formatoHora.format(HS);// guardamos la hora
+				
+				Persona p = new Persona(nombre, apellido, fecha, hora);
+				agenda.addElement(p);
+				
+				textField_Nombre.setText("");
+				textField_Apellido.setText("");
+		
+				
+			}
+		});
+		menuBar.add(btnNewButton);
+		
+		
+		list1.setModel(agenda);
+
 
 	}
 }
